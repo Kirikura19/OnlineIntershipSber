@@ -7,6 +7,14 @@ public class City
     private int population;
     private String foundation;
 
+    public String getName() {
+        return name;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
     public City(int ID, String name, String region, String district, int population, String foundation) {
         this.ID = ID;
         this.name = name;

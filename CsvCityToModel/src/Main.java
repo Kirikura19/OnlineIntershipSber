@@ -1,16 +1,16 @@
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
+
 public class Main
 {
-    // Checking if lien is not correct
+    // Checking if line is not correct
     public static void validation(int id)
     {
-        System.out.println("Line " + id + " is not correct.");
+        System.out.println("Line "
+                + id + " is not correct.");
     }
     // Getting file from src
     public static Scanner getFile()
@@ -25,6 +25,7 @@ public class Main
         }
         return null;
     }
+    // Convert CSV to city list
     public static List<City> csvCityToModel(Scanner scanner)
     {
         City city;
@@ -46,6 +47,7 @@ public class Main
         scanner.close();
         return cities;
     }
+    // Output
     public static void output(List<City> cities)
     {
         for(int i = 0; i < cities.size(); i++)
@@ -53,9 +55,28 @@ public class Main
             System.out.println(cities.get(i).toString());
         }
     }
+    // Sorting by city name
+    public static List<City> sortByName(List<City> cities)
+    {
+        List<City> citiesSortedName = cities.stream()
+                .sorted(Comparator.comparing(City::getName))
+                .collect(Collectors.toList());
+        return citiesSortedName;
+    }
+    // Sorting by Districts and names inside
+    public static List<City> sortByDistrictAndName(List<City> cities)
+    {
+        List<City> citiesSortedDistinctName = cities.stream()
+                .sorted(Comparator.comparing(City::getDistrict))
+                .sorted(Comparator.comparing(City::getName))
+                .collect(Collectors.toList());
+        return citiesSortedDistinctName;
+    }
 
     public static void main(String[] args)
     {
-        output(csvCityToModel(getFile()));
+        //output(csvCityToModel(getFile()));
+        sortByName(csvCityToModel(getFile()));
+        sortByDistrictAndName(csvCityToModel(getFile()));
     }
 }
