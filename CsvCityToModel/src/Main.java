@@ -73,10 +73,34 @@ public class Main
         return citiesSortedDistinctName;
     }
 
+    public static int[] findCityMaxCitizens(List<City> cities)
+    {
+        /*
+        int maxPopelation = cities.stream()
+                .max(Comparator.comparing(City::getPopulation))
+                .get().getPopulation(); */
+        // По ТЗ
+
+        City[] citiesArr = cities.toArray(City[]::new);
+        int max = 0;
+        int index = 0;
+        for(int i = 0; i < citiesArr.length; i++)
+        {
+            if(citiesArr[i].getPopulation() > max)
+            {
+                max = citiesArr[i].getPopulation();
+                index = i;
+            }
+        }
+        return new int[]{max, index};
+    }
+
     public static void main(String[] args)
     {
         //output(csvCityToModel(getFile()));
         sortByName(csvCityToModel(getFile()));
         sortByDistrictAndName(csvCityToModel(getFile()));
+        findCityMaxCitizens(csvCityToModel(getFile()));
+        
     }
 }
