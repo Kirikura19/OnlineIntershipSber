@@ -72,7 +72,7 @@ public class Main
                 .collect(Collectors.toList());
         return citiesSortedDistinctName;
     }
-
+    // Finding index of the city with max population
     public static int[] findCityMaxCitizens(List<City> cities)
     {
         /*
@@ -94,13 +94,25 @@ public class Main
         }
         return new int[]{max, index};
     }
+    public static Map<String,Integer> calcCityInDistricts(List<City> cities)
+    {
+        Map<String,Integer> dictionary = new HashMap<String,Integer>();
+        for(int i = 0; i < cities.size(); i++)
+        {
+            if(!dictionary.containsKey(cities.get(i).getDistrict()))
+                dictionary.put(cities.get(i).getDistrict(), 0);
+            dictionary.put(cities.get(i).getDistrict(), dictionary.get(cities.get(i).getDistrict()) + 1);
+        }
+        return dictionary;
 
+    }
     public static void main(String[] args)
     {
         //output(csvCityToModel(getFile()));
-        sortByName(csvCityToModel(getFile()));
-        sortByDistrictAndName(csvCityToModel(getFile()));
-        findCityMaxCitizens(csvCityToModel(getFile()));
-        
+        //sortByName(csvCityToModel(getFile()));
+        //sortByDistrictAndName(csvCityToModel(getFile()));
+        //findCityMaxCitizens(csvCityToModel(getFile()));
+        //calcCityInDistricts(csvCityToModel(getFile()));
+        System.out.println(calcCityInDistricts(csvCityToModel(getFile())).toString());
     }
 }
